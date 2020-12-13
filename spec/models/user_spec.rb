@@ -100,7 +100,6 @@ RSpec.describe User, type: :model do
     end
 
     context '新規登録がうまくいかない時（本人情報確認）' do
-      # last_name,first_name
 
       it 'last_nameが空だと登録できない' do
         @user.last_name = nil
@@ -137,8 +136,6 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('First name 全角文字を使用してください')
       end
-
-      # last_kana,first_kana
 
       it 'last_kanaが空だと登録できない' do
         @user.last_kana = nil
@@ -199,8 +196,6 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('First kana 全角カナを使用してください')
       end
-
-      # birthday
 
       it 'birthdayが空だと登録できない' do
         @user.birthday = nil
