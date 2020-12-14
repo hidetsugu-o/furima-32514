@@ -14,4 +14,6 @@ class User < ApplicationRecord
 
   KANA_REGEX = /\A[ァ-ヶ]+\z/.freeze
   validates :last_kana, :first_kana, presence: true, format: { with: KANA_REGEX, message: '全角カナを使用してください' }
+
+  has_many :items
 end
