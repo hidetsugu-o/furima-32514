@@ -100,7 +100,6 @@ RSpec.describe User, type: :model do
     end
 
     context '新規登録がうまくいかない時（本人情報確認）' do
-
       it 'last_nameが空だと登録できない' do
         @user.last_name = nil
         @user.valid?
