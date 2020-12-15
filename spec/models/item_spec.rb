@@ -49,10 +49,22 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Profile can't be blank")
       end
 
+      it 'category_idが空だと登録できない' do
+        @item.category_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
       it 'category_idが選択されていないと登録できない' do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Category を選択してください')
+      end
+
+      it 'status_idが空だと登録できない' do
+        @item.status_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status can't be blank")
       end
 
       it 'status_idが選択されていないと登録できない' do
@@ -61,10 +73,22 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Status を選択してください')
       end
 
+      it 'delivery_fee_idが空だと登録できない' do
+        @item.delivery_fee_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery fee can't be blank")
+      end
+
       it 'delivery_fee_idが選択されていないと登録できない' do
         @item.delivery_fee_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Delivery fee を選択してください')
+      end
+
+      it 'prefecture_idが空だと登録できない' do
+        @item.prefecture_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
       it 'prefecture_idが選択されていないと登録できない' do
@@ -73,16 +97,16 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Prefecture を選択してください')
       end
 
+      it 'days_to_ship_idが空だと登録できない' do
+        @item.days_to_ship_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Days to ship can't be blank")
+      end
+
       it 'days_to_ship_idが選択されていないと登録できない' do
         @item.days_to_ship_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Days to ship を選択してください')
-      end
-
-      it 'priceが空だと登録できない' do
-        @item.price = nil
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
       it 'priceが空だと登録できない' do
