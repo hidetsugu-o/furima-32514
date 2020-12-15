@@ -43,12 +43,6 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Profile can't be blank")
       end
 
-      it 'profileが空だと登録できない' do
-        @item.profile = nil
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Profile can't be blank")
-      end
-
       it 'category_idが空だと登録できない' do
         @item.category_id = nil
         @item.valid?
@@ -115,13 +109,13 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
-      it 'priceが300以下だと登録できない' do
+      it 'priceが299以下だと登録できない' do
         @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
 
-      it 'priceが9999999以上だと登録できない' do
+      it 'priceが10000000以上だと登録できない' do
         @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
