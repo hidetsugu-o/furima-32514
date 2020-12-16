@@ -30,13 +30,14 @@ class ItemsController < ApplicationController
     else
       redirect_to new_user_registration_path
     end
+  end
 
   def edit
-    @item = Item.find(params[id])
+    @item = Item.find(params[:id])
   end
 
   def update
-    item = Item.find(params[id])
+    item = Item.find(params[:id])
     item.update(item_params)
   end
 
