@@ -38,6 +38,11 @@ class BuyersController < ApplicationController
     @buyer_shipping_address.phone_number = nil
   end
 
+  def check_sold?
+      redirect_to root_path if @item.buyer
+    end
+  end
+
   def check_seller?
     redirect_to root_path if current_user.id == @item.user_id
   end
@@ -49,12 +54,5 @@ class BuyersController < ApplicationController
       card: buyer_params[:token],
       currency: 'jpy'
     )
-  end
-
-  def check_sold?
-    @buyers = Buyer.all
-    @buyers.each do |buyer|
-      return redirect_to root_path if @item.id == buyer.item_id
-    end
   end
 end
