@@ -1,7 +1,11 @@
 class BuyersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @buyer_shipping_address = BuyerShippingAddress.new
     @item = Item.find(params[:item_id])
+    check_sold?
+    check_seller?
   end
 
   def create
@@ -34,12 +38,23 @@ class BuyersController < ApplicationController
     @buyer_shipping_address.phone_number = nil
   end
 
+  def check_seller?
+    redirect_to root_path if current_user.id == @item.user_id
+  end
+
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: buyer_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def check_sold?
+    @buyers = Buyer.all
+    @buyers.each do |buyer|
+      return redirect_to root_path if @item.id == buyer.item_id
+    end
   end
 end
