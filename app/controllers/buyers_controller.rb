@@ -6,18 +6,40 @@ class BuyersController < ApplicationController
 
   def create
     @buyer_shipping_address = BuyerShippingAddress.new(buyer_params)
+    @item = Item.find(params[:item_id])
     if @buyer_shipping_address.valid?
+      pay_item
       @buyer_shipping_address.save
       redirect_to root_path
     else
-      @buyer_shipping_address = BuyerShippingAddress.new(buyer_params[:errors])
-      @item = Item.find(params[:item_id])
+      reset_buyer
       render :index
     end
   end
 
   private
+
   def buyer_params
-    params.require(:buyer_shipping_address).permit(:user_id, :item_id, :postal_code, :prefecture_id, :municipality, :address, :building, :phone_number, :buyer_id)
+    params.require(:buyer_shipping_address).permit(
+      :postal_code, :prefecture_id, :municipality, :address, :building, :phone_number
+    ).merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
+  end
+
+  def reset_buyer
+    @buyer_shipping_address.postal_code = nil
+    @buyer_shipping_address.prefecture_id = nil
+    @buyer_shipping_address.municipality = nil
+    @buyer_shipping_address.address = nil
+    @buyer_shipping_address.building = nil
+    @buyer_shipping_address.phone_number = nil
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: buyer_params[:token],
+      currency: 'jpy'
+    )
   end
 end
