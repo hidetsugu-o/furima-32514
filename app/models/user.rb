@@ -16,4 +16,5 @@ class User < ApplicationRecord
   validates :last_kana, :first_kana, presence: true, format: { with: KANA_REGEX, message: '全角カナを使用してください' }
 
   has_many :items
+  has_many :buyers
 end
