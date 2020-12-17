@@ -1,6 +1,6 @@
 class BuyersController < ApplicationController
   def index
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
   end
 
   def create
