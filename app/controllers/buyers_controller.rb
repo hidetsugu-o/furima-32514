@@ -4,8 +4,7 @@ class BuyersController < ApplicationController
   def index
     @buyer_shipping_address = BuyerShippingAddress.new
     @item = Item.find(params[:item_id])
-    check_sold?
-    check_seller?
+    check_sold_or_sellor?
   end
 
   def create
@@ -38,13 +37,8 @@ class BuyersController < ApplicationController
     @buyer_shipping_address.phone_number = nil
   end
 
-  def check_sold?
-      redirect_to root_path if @item.buyer
-    end
-  end
-
-  def check_seller?
-    redirect_to root_path if current_user.id == @item.user_id
+  def check_sold_or_sellor?
+    redirect_to root_path if @item.buyer || current_user.id == @item.user_id
   end
 
   def pay_item
