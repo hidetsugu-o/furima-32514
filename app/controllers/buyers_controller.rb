@@ -1,15 +1,14 @@
 class BuyersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item
 
   def index
     @buyer_shipping_address = BuyerShippingAddress.new
-    @item = Item.find(params[:item_id])
     check_sold_or_sellor?
   end
 
   def create
     @buyer_shipping_address = BuyerShippingAddress.new(buyer_params)
-    @item = Item.find(params[:item_id])
     if @buyer_shipping_address.valid?
       pay_item
       @buyer_shipping_address.save
@@ -21,6 +20,10 @@ class BuyersController < ApplicationController
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def buyer_params
     params.require(:buyer_shipping_address).permit(

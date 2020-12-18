@@ -22,9 +22,26 @@ RSpec.describe BuyerShippingAddress, type: :model do
         @buyer_shipping_address.phone_number = '09012345678'
         expect(@buyer_shipping_address).to be_valid
       end
+
+      it 'buildingが空でも登録できる' do
+        @buyer_shipping_address.building = nil
+        expect(@buyer_shipping_address).to be_valid
+      end
     end
 
     context '商品登録がうまくいかない時' do
+      it 'user_idが空だと登録できない' do
+        @buyer_shipping_address.user_id = nil
+        @buyer_shipping_address.valid?
+        expect(@buyer_shipping_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと登録できない' do
+        @buyer_shipping_address.item_id = nil
+        @buyer_shipping_address.valid?
+        expect(@buyer_shipping_address.errors.full_messages).to include("Item can't be blank")
+      end
+
       it 'tokenが空だと登録できない' do
         @buyer_shipping_address.token = nil
         @buyer_shipping_address.valid?
