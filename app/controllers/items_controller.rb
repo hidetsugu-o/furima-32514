@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    check_seller?
+    check_sold_and_seller?
   end
 
   def update
@@ -56,7 +56,11 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def check_seller?
-    redirect_to root_path unless current_user.id == @item.user_id
+  def check_sold_and_seller?
+    if @item.buyer
+      redirect_to root_path
+    elsif current_user.id != @item.user_id
+      redirect_to root_path
+    end
   end
 end
