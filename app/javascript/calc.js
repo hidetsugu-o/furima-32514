@@ -9,5 +9,6 @@ function calc (){
     addTaxPrice.innerHTML = taxCalc;
     profit.innerHTML = profitCalc;
   });
-};
+}
+
 window.addEventListener('load', calc);

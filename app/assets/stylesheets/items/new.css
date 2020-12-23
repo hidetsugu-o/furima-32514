@@ -89,17 +89,6 @@
   margin-bottom: 15px;
 }
 
-#image-list {
-  display: flex;
-  flex-wrap: wrap;
-  width: 800px;
-}
-
-#image-list img {
-  max-width: 150px;
-  max-height: 150px;
-}
-
 /* /出品画像 */
 
 /* 商品名と商品説明 */
