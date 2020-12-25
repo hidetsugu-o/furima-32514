@@ -11,5 +11,4 @@ RSpec.describe SnsCredential, type: :model do
       expect(@sns_credential).to be_valid
     end
   end
-  
 end
