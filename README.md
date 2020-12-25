@@ -17,6 +17,19 @@
 
 - has_many :items
 - has_many :buyers
+- has_many :sns_credentials
+
+## sns_credentialsテーブル
+
+| Column   | Type       | Options           |
+| -------- | ------     | ----------------- |
+| provider | string     | null: false       |
+| uid      | string     | null: false       |
+| user     | references | foreign_key: true |
+
+### Association
+
+- belongs_to :user, optional: true
 
 ## itemsテーブル
 
